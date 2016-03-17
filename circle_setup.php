@@ -20,11 +20,11 @@ if (php_sapi_name() != 'cli') {
     exit;
 }
 
-#$defaults = array(
-#    // Readonly token for 'silverstripe-issues' user to increase our rate limitation.
-#    // Please be fair and define your own token if using for own projects.
-#    'GITHUB_API_TOKEN' => '2434108664388ca0199319b98a6068af8e5dc547'
-#);
+$defaults = array(
+    // Readonly token for 'silverstripe-issues' user to increase our rate limitation.
+    // Please be fair and define your own token if using for own projects.
+    'GITHUB_API_TOKEN' => '2434108664388ca0199319b98a6068af8e5dc547'
+);
 
 /**
  * 1. Check and parse command line options
@@ -86,18 +86,18 @@ printf("  * PHP:     %s\n\n", trim(`php --version`));
  * 4. Set up Github API token for higher rate limits (optional)
  * See http://blog.simplytestable.com/creating-and-using-a-github-oauth-token-with-travis-and-composer/
  */
-#if (!getenv('GITHUB_API_TOKEN')) {
-#    putenv('GITHUB_API_TOKEN=' . $defaults['GITHUB_API_TOKEN']);
-#}
+if (!getenv('GITHUB_API_TOKEN')) {
+    putenv('GITHUB_API_TOKEN=' . $defaults['GITHUB_API_TOKEN']);
+}
 
-#if (getenv('GITHUB_API_TOKEN')
-#    // Defaults to unencrypted tokens, so we don't need to exclude pull requests
-#    // && (!getenv('TRAVIS_PULL_REQUEST') || getenv('TRAVIS_PULL_REQUEST') == 'false')
-#) {
-#    // Set the token without echo'ing the command to keep it secure
-#    run('composer config -g github-oauth.github.com ' . getenv('GITHUB_API_TOKEN'), false);
-#    echo "Using GITHUB_API_TOKEN...\n";
-#}
+if (getenv('GITHUB_API_TOKEN')
+    // Defaults to unencrypted tokens, so we don't need to exclude pull requests
+    // && (!getenv('TRAVIS_PULL_REQUEST') || getenv('TRAVIS_PULL_REQUEST') == 'false')
+) {
+    // Set the token without echo'ing the command to keep it secure
+    run('composer config -g github-oauth.github.com ' . getenv('GITHUB_API_TOKEN'), false);
+    echo "Using GITHUB_API_TOKEN...\n";
+}
 
 /**
  * 5. Extract the package info from the module composer file, both for this module (from local)
